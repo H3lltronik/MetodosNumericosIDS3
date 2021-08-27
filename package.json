@@ -28,7 +28,7 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "testEnviroment": "node",
+    "testEnvironment": "node",
     "collectCoverage": true,
     "coveragePathIgnorePatterns": [
       "/node_modules/",

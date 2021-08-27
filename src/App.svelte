@@ -1,9 +1,15 @@
 <script lang="ts">
   import logo from './assets/svelte.png'
-  import Calculator from './lib/Calculator';
   import styles from './styles/app.module.scss'
+
+  import Calculator from './lib/Calculator/Calculator';
+  import MathParser from './lib/MathParser/MathParser';
+
+  const mathParser = new MathParser();
+  mathParser.setExpression("cos(45 deg)");
+  console.log("res full", mathParser.execute() );
+  console.log("res rounded", mathParser.execute(6) );
   
-  const test = new Calculator();
 </script>
 
 <main>
