@@ -82,16 +82,18 @@ class Calculator {
     private execution = () => {
         this.currIteration = 0;
         let firstRes = this.aproxMethod.executeMethod(this.startPoint);
+        this.calculateError();
         this.iterationsStory.push({...firstRes, ...this.startPoint});
-        // console.log("first Result", firstRes)
+        this.currIteration++;
+        
         let lastRes: AproxIterationResult = {...firstRes};
-        let currRes: AproxIterationResult = {aproxResult: 0, expressionResult: 0, negativeXValue: 0, positiveXValue: 0};
+        let currRes: AproxIterationResult = { nextNegativeXValue: 0, nextPositiveXValue: 0, currNegativeXValue: 0, currPositiveXValue: 0, expressionResult: 0, aproxResult: 0};
+
         while(true) {
             currRes = this.aproxMethod.executeMethod({
-                negativeXValue: lastRes.negativeXValue, 
-                positiveXValue: lastRes.positiveXValue
+                negativeXValue: lastRes.nextNegativeXValue, 
+                positiveXValue: lastRes.nextPositiveXValue
             });
-            // console.log(`iteration #${this.currIteration} = `, currRes)
             
             lastRes = {...currRes};
 
@@ -113,8 +115,8 @@ class Calculator {
             previousVal: 0,
         };
         if (this.currIteration > 0) {
-            payload.currentVal = this.iterationsStory[this.currIteration].negativeXValue, 
-            payload.previousVal = this.iterationsStory[this.currIteration].positiveXValue
+            payload.currentVal = this.iterationsStory[this.currIteration].nextNegativeXValue, 
+            payload.previousVal = this.iterationsStory[this.currIteration].nextPositiveXValue
         }
         const result = this.errorMethod.executeMethod(payload);
         this.errorValues.push(result);

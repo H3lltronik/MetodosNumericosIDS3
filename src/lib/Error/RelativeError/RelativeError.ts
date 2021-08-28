@@ -8,7 +8,7 @@ class RelativeError implements ErrorExecutable {
     executeMethod(values: ErrorValType) {
         if (values.currentVal == 0) return 0
 
-        this.mathParser.setExpression("abs(currentVal - previousVal / currentVal)")
+        this.mathParser.setExpression("abs(currentVal - previousVal) / currentVal")
         this.mathParser.setVariableValues([
             {
                 variable: "currentVal",

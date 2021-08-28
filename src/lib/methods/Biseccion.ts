@@ -36,8 +36,10 @@ class Biseccion implements AproxExecutable {
         
         console.log("biseccion before", values, expResult, itResult)
         const resultObj: AproxIterationResult = {
-            negativeXValue: (expResult < 0)? itResult : values.negativeXValue,
-            positiveXValue: (expResult > 0)? itResult : values.positiveXValue,
+            nextNegativeXValue: (expResult < 0)? itResult : values.negativeXValue,
+            nextPositiveXValue: (expResult > 0)? itResult : values.positiveXValue,
+            currNegativeXValue: values.negativeXValue,
+            currPositiveXValue: values.positiveXValue,
             expressionResult: expResult,
             aproxResult: itResult,
         }

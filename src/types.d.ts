@@ -29,8 +29,10 @@ type IterationResult = {
 }
 
 type AproxIterationResult = {
-    negativeXValue: number,
-    positiveXValue: number,
+    currNegativeXValue: number,
+    currPositiveXValue: number,
+    nextNegativeXValue: number,
+    nextPositiveXValue: number,
     expressionResult: number,
     aproxResult: number,
 }

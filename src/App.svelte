@@ -23,7 +23,7 @@
   // console.log("iterations", iterations);
 
   calculator.setStartPoint({negativeXValue: 2, positiveXValue: 3});
-  calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 3);
+  calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 4);
   calculator.beginExecution();
 </script>
 
