@@ -12,7 +12,7 @@
   mathParser.setFixedDecimals(3);
 
   const calculator = new Calculator(mathParser);
-  const relativeError = new RelativeError();
+  const relativeError = new RelativeError(mathParser);
   const biseccion = new Biseccion(mathParser, expression, 'x');
 
   calculator.setExpression(expression);
@@ -20,10 +20,10 @@
   calculator.setErrorMethod(relativeError);
   const iterations = calculator.iterate(-3, 3, 1, 'x');
 
-  console.log("iterations", iterations);
+  // console.log("iterations", iterations);
 
-  calculator.setStartPoint({negativeXValue: 1, positiveXValue: -1});
-  calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 4);
+  calculator.setStartPoint({negativeXValue: 2, positiveXValue: 3});
+  calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 3);
   calculator.beginExecution();
 </script>
 

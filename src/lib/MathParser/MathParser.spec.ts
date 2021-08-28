@@ -18,7 +18,8 @@ test('should return a number with a given number of decimals', () => {
     const mathParser = new MathParser();
     mathParser.setExpression("cos(45 deg)");
     const resultFull = mathParser.execute();
-    const resultRounded = mathParser.execute(6);
+    mathParser.setFixedDecimals(6)
+    const resultRounded = mathParser.execute();
 
     expect(resultFull).toBe(0.7071067811865476);
     expect(resultRounded).toBe(0.707107);

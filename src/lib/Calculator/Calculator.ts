@@ -82,7 +82,8 @@ class Calculator {
     private execution = () => {
         this.currIteration = 0;
         let firstRes = this.aproxMethod.executeMethod(this.startPoint);
-        console.log("first Result", firstRes)
+        this.iterationsStory.push({...firstRes, ...this.startPoint});
+        // console.log("first Result", firstRes)
         let lastRes: AproxIterationResult = {...firstRes};
         let currRes: AproxIterationResult = {aproxResult: 0, expressionResult: 0, negativeXValue: 0, positiveXValue: 0};
         while(true) {
@@ -90,7 +91,7 @@ class Calculator {
                 negativeXValue: lastRes.negativeXValue, 
                 positiveXValue: lastRes.positiveXValue
             });
-            console.log(`iteration #${this.currIteration} = `, currRes)
+            // console.log(`iteration #${this.currIteration} = `, currRes)
             
             lastRes = {...currRes};
 

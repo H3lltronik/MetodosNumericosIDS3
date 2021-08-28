@@ -10,8 +10,21 @@ class Biseccion implements AproxExecutable {
     }
 
     executeMethod(values: AproxType): AproxIterationResult {
-        const itResult = (values.negativeXValue + values.positiveXValue) / 2;
+        this.mathParser.setExpression("(negativeXValue + positiveXValue) / 2")
+        this.mathParser.setVariableValues([
+            {
+                variable: "negativeXValue",
+                value: values.negativeXValue
+            },
+            {
+                variable: "positiveXValue",
+                value: values.positiveXValue
+            },
+        ])
+        const itResult = this.mathParser.execute();
+        this.mathParser.clear();
         
+        // Preparing mathParser to evaluate the expression 
         this.mathParser.setExpression(this.expression)
         this.mathParser.setVariableValues([
             {
@@ -21,13 +34,14 @@ class Biseccion implements AproxExecutable {
         ])
         const expResult = this.mathParser.execute();
         
-
+        console.log("biseccion before", values, expResult, itResult)
         const resultObj: AproxIterationResult = {
             negativeXValue: (expResult < 0)? itResult : values.negativeXValue,
-            positiveXValue: (expResult >= 0)? itResult : values.positiveXValue,
+            positiveXValue: (expResult > 0)? itResult : values.positiveXValue,
             expressionResult: expResult,
             aproxResult: itResult,
         }
+        console.log("biseccion result", resultObj)
         return resultObj;
     };
 }
