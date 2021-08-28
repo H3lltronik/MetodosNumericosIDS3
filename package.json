@@ -24,7 +24,8 @@
     "vite": "^2.5.1"
   },
   "dependencies": {
-    "mathjs": "^9.4.4"
+    "mathjs": "^9.4.4",
+    "svelte-materialify": "^0.3.11"
   },
   "jest": {
     "preset": "ts-jest",

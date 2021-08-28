@@ -1,13 +1,17 @@
 <script lang="ts">
   import logo from './assets/svelte.png'
   import styles from './styles/app.module.scss'
+  import { Row, Col, Container, TextField, MaterialApp, Card, AppBar, Radio, Button } from 'svelte-materialify';
 
   import Calculator, { MethodStopCondition, MethodStopType } from './lib/Calculator/Calculator';
   import MathParser from './lib/MathParser/MathParser';
   import RelativeError from './lib/Error/RelativeError/RelativeError';
   import Biseccion from './lib/methods/Biseccion';
+import Configuration from './components/Configuration.svelte';
+import IterationsTable from './components/IterationsTable.svelte';
+import ResultsTable from './components/ResultsTable.svelte';
 
-  const expression = "x-4sin(x)";
+  let expression = "x^3 - 5";
   const mathParser = new MathParser();
   mathParser.setFixedDecimals(3);
 
@@ -18,19 +22,39 @@
   calculator.setExpression(expression);
   calculator.setAproxMethod(biseccion);
   calculator.setErrorMethod(relativeError);
-  const iterations = calculator.iterate(-3, 3, 1, 'x');
+  // const iterations = calculator.iterate(-3, 3, 1, 'x');
 
-  // console.log("iterations", iterations);
-
-  calculator.setStartPoint({negativeXValue: 2, positiveXValue: 3});
-  calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 4);
-  calculator.beginExecution();
+  calculator.setStartPoint({negativeXValue: 1, positiveXValue: 2});
+  calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 3);
+  // calculator.beginExecution();
 </script>
 
 <main>
-  <h1>a</h1>
-  <div class={styles.test}>
-    <p>ALKSDASKDAKL</p>
-    <h3>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla temporibus quisquam pariatur reprehenderit sint. Eveniet quaerat voluptate fuga laborum in, iusto fugiat ducimus explicabo! Obcaecati et cum minima deleniti magnam!</h3>
-  </div>
+  <MaterialApp>
+    <AppBar>
+      <span class="text-h5">Metodos numericos</span>
+      <div style="flex-grow:1" />
+    </AppBar>
+    <Container>
+      <Row>
+
+        <Col xl={3}>
+          <Card>
+            <Configuration/>
+          </Card>
+        </Col>
+        <Col xl={2}>
+          <Card>
+            <IterationsTable/>
+          </Card>
+        </Col>
+        <Col xl={7}>
+          <Card>
+            <ResultsTable/>
+          </Card>
+        </Col>
+
+      </Row>
+    </Container>
+  </MaterialApp>
 </main>
