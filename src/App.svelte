@@ -2,14 +2,29 @@
   import logo from './assets/svelte.png'
   import styles from './styles/app.module.scss'
 
-  import Calculator from './lib/Calculator/Calculator';
+  import Calculator, { MethodStopCondition, MethodStopType } from './lib/Calculator/Calculator';
   import MathParser from './lib/MathParser/MathParser';
+  import RelativeError from './lib/Error/RelativeError/RelativeError';
+  import Biseccion from './lib/methods/Biseccion';
 
+  const expression = "x-4sin(x)";
   const mathParser = new MathParser();
-  mathParser.setExpression("cos(45 deg)");
-  console.log("res full", mathParser.execute() );
-  console.log("res rounded", mathParser.execute(6) );
-  
+  mathParser.setFixedDecimals(3);
+
+  const calculator = new Calculator(mathParser);
+  const relativeError = new RelativeError();
+  const biseccion = new Biseccion(mathParser, expression, 'x');
+
+  calculator.setExpression(expression);
+  calculator.setAproxMethod(biseccion);
+  calculator.setErrorMethod(relativeError);
+  const iterations = calculator.iterate(-3, 3, 1, 'x');
+
+  console.log("iterations", iterations);
+
+  calculator.setStartPoint({negativeXValue: 1, positiveXValue: -1});
+  calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 4);
+  calculator.beginExecution();
 </script>
 
 <main>
