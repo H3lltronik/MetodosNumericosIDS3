@@ -13,6 +13,7 @@
     DataTableCell,
     DataTableBody,
   } from "svelte-materialify";
+import { calculusIterationResults } from "../store";
 
   let values: AproxType = {
     negativeXValue: 2,
@@ -22,6 +23,7 @@
 
   let doCalculus = () => {
     results = doResultCalculus(values);
+    calculusIterationResults.set(results);
   };
 </script>
 

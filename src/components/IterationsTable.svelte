@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { varToItOver } from "../store";
+    import { varToItOver, iterationStep } from "../store";
     import { Row, Col, TextField, Card, Radio, Button, DataTable, DataTableHead, DataTableRow, DataTableCell, DataTableBody, } from "svelte-materialify";
     import {doTableIteration} from "../lib/implementations"
 
@@ -46,7 +46,8 @@
       <TextField
         filled dense
         type="number"
-        bind:value={step}
+        value={step}
+        on:input={e => { step = Number(e.target.value ) }}
       >
         <span>Step</span>
       </TextField>
