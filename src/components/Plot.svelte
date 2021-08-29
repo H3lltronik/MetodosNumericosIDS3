@@ -6,23 +6,27 @@
   import { doTableIteration } from "../lib/implementations";
 
   let step = 1;
+  let plotEl = null;
+  let plot = null;
   let iterations = [];
   let range = ["-10", "10"];
 
+  onMount(() => {
+    plot = new Plot(plotEl);
+  })
+
   let loadIterations = () => {
     const itResults = doTableIteration(Number(range[0]), Number(range[1]), step);
+    if(!itResults) return
     iterations = itResults.iterations.reverse();
 
-    console.log("wat", iterations)
-    const plot = new Plot(plotEl, iterations.map(it => it.result ), itResults.expression);
+    plot.plot(iterations.map(it => it.result ), itResults.expression);
   };
-
-  let plotEl = null;
 </script>
 
 <Row class="pl-4 pr-4">
   <Col cols={12}>
-    <div class="text-h6">Plotting expression {step}</div>
+    <div class="text-h6">Plotting expression</div>
     <Row>
         <Col cols={12} md={4}>
             <TextField

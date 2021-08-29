@@ -27,7 +27,7 @@
             <ResultsTable/>
           </Card>
         </Col>
-        <Col cols={12} lg={12} xl={7}>
+        <Col cols={12} lg={12} xl={12}>
           <Card>
             <Plot/>
           </Card>

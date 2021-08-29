@@ -1,10 +1,19 @@
 import {Chart, registerables} from 'chart.js'
 
 class Plot {
-    constructor(plotEl: HTMLCanvasElement, data: number[], name: string) {
-        Chart.register(...registerables);
+    private chart: Chart = null;
+    private plotEl: HTMLCanvasElement = null;
 
-        let test = new Chart(plotEl, {
+    constructor(plotEl: HTMLCanvasElement) {
+        this.plotEl = plotEl;
+        Chart.register(...registerables);
+    }
+
+    plot (data: number[], name: string) {
+        if (this.chart) {
+            this.chart.destroy();
+        }
+        this.chart = new Chart(this.plotEl, {
             type: 'line',
             data: {
                 labels: data,

@@ -25,6 +25,7 @@
     "vite": "^2.5.1"
   },
   "dependencies": {
+    "@mdi/js": "^5.9.55",
     "chart.js": "^3.5.1",
     "mathjs": "^9.4.4",
     "svelte-materialify": "^0.3.11"

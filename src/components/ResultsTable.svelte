@@ -19,10 +19,12 @@ import { calculusIterationResults } from "../store";
     negativeXValue: 2,
     positiveXValue: 3,
   };
-  let results: CalculusIterationsResult = [];
+  let results: CalculusIterationsResult|undefined = [];
 
   let doCalculus = () => {
-    results = doResultCalculus(values);
+    const res = doResultCalculus(values);
+    if(!res) return
+    results = res
     calculusIterationResults.set(results);
   };
 </script>

@@ -28,6 +28,11 @@ type IterationResult = {
     result: number,
 }
 
+type TableIterations = {
+    iterations: IterationResult[],
+    expression: string,
+}
+
 type AproxIterationResult = {
     currNegativeXValue: number,
     currPositiveXValue: number,
@@ -56,3 +61,9 @@ type CalculusIterationResult = {
     error: number,
 }
 type CalculusIterationsResult = CalculusIterationResult[]
+
+type AppAlert = {
+    type: 'error'|'success',
+    text: string,
+    id: number,
+}

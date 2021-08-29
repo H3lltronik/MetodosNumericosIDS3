@@ -15,6 +15,7 @@ import {
     stopCriteriaVal as stopCriteriaValStore,
     stopCriteriaMethod as stopCriteriaMethodStore,
     stopCriteriaMethod,
+    appAlerts as appAlertsStore,
 } from "../store";
 import ReglaFalsa from './methods/ReglaFalsa';
 
@@ -24,11 +25,7 @@ const calculator = new Calculator(mathParser);
 export const doTableIteration = (
     lowLimit: number, 
     highLimit: number, 
-    step: number) :
-    {
-        iterations: IterationResult[],
-        expression: string,
-    } =>  {
+    step: number) : TableIterations|undefined =>  {
     const expression = get (expressionStore);
     const fixedDecimals = get (fixedDecimalsStore);
     const varToItOver = get (varToItOverStore);
@@ -37,16 +34,24 @@ export const doTableIteration = (
     mathParser.setFixedDecimals(fixedDecimals);
     // 
 
-    const iterations = calculator.iterate(lowLimit, highLimit, step, varToItOver);
-    return {
-        iterations,
-        expression
-    };
+    try {
+        const iterations = calculator.iterate(lowLimit, highLimit, step, varToItOver);
+        return {
+            iterations,
+            expression
+        };
+    } catch (error) {
+        addAlert({
+            id: Date.now(),
+            text: "Could not evaluate. Verify your expression and values and try again",
+            type: 'error',
+        })
+    }
 }
 
 export const doResultCalculus = (
     startPoint: AproxType
-    ): CalculusIterationsResult => {
+    ): CalculusIterationsResult|undefined => {
     const expression = get (expressionStore);
     const fixedDecimals = get (fixedDecimalsStore);
     const varToItOver = get (varToItOverStore);
@@ -89,10 +94,27 @@ export const doResultCalculus = (
         get(stopCriteriaStore), 
         get(stopCriteriaValStore)
     );
-    const result = calculator.beginExecution();
+    
+    try {
+        const result = calculator.beginExecution();
 
-    if (result)
-        console.log("Loop execution finished:", result);
+        if (result)
+            console.log("Loop execution finished:", result);
 
-    return result;
+        return result;
+
+    } catch (error) {
+        addAlert({
+            id: Date.now(),
+            text: "Could not evaluate. Verify your expression and values and try again",
+            type: 'error',
+        })
+    }
+}
+
+export const addAlert = (appAlert: AppAlert) => {
+    window.scrollTo({top: 0, behavior: 'smooth'})
+    const currAlerts = get(appAlertsStore)
+    currAlerts.push(appAlert);
+    appAlertsStore.set(currAlerts);
 }

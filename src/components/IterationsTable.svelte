@@ -15,6 +15,7 @@
         Number(range[1]),
         step
       );
+      if(!itResults) return
       iterations = itResults.iterations.reverse();
       expressionUsed = itResults.expression;
     }
