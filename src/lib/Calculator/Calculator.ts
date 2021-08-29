@@ -68,11 +68,18 @@ class Calculator {
         return results;
     }
 
-    beginExecution = () => {
-        if (!this.startPoint) { console.error("startPoint not defined"); return false; }
-        if (!this.aproxMethod) { console.error("aproxMethod not defined"); return false; }
+    beginExecution = (): CalculusIterationsResult => {
+        if (!this.startPoint) { console.error("startPoint not defined"); return null; }
+        if (!this.aproxMethod) { console.error("aproxMethod not defined"); return null; }
 
         this.execution();
+
+        // Format result
+        const result: CalculusIterationsResult = this.iterationsStory.map((it, index): CalculusIterationResult => {
+            return {...it, error: this.errorValues[index]}
+        })
+
+        return result;
     }
 
     setStartPoint (values: AproxType) {
@@ -87,7 +94,7 @@ class Calculator {
         this.currIteration++;
         
         let lastRes: AproxIterationResult = {...firstRes};
-        let currRes: AproxIterationResult = { nextNegativeXValue: 0, nextPositiveXValue: 0, currNegativeXValue: 0, currPositiveXValue: 0, expressionResult: 0, aproxResult: 0};
+        let currRes: AproxIterationResult = { nextNegativeXValue: 0, nextPositiveXValue: 0, currNegativeXValue: 0, currPositiveXValue: 0, expressionResult: 0, aproxResult: 0, evaluatedCurrNeg: 0, evaluatedCurrPos: 0};
 
         while(true) {
             currRes = this.aproxMethod.executeMethod({
@@ -103,8 +110,6 @@ class Calculator {
             if (this.doStop()) break;
             this.currIteration++;
         }
-
-        console.log("Loop execution finished with", this.iterationsStory, " and errors ", this.errorValues)
     }
 
     private calculateError = () => {

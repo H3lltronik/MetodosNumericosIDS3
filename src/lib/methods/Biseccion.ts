@@ -34,16 +34,30 @@ class Biseccion implements AproxExecutable {
         ])
         const expResult = this.mathParser.execute();
         
-        console.log("biseccion before", values, expResult, itResult)
+        this.mathParser.setVariableValues([{
+            variable: this.variable,
+            value: values.negativeXValue
+        }])
+        const evaluatedCurrNeg = this.mathParser.execute();
+        
+        this.mathParser.setVariableValues([{
+            variable: this.variable,
+            value: values.positiveXValue
+        }])
+        const evaluatedCurrPos = this.mathParser.execute();
+        
+        // console.log("biseccion before", values, expResult, itResult)
         const resultObj: AproxIterationResult = {
             nextNegativeXValue: (expResult < 0)? itResult : values.negativeXValue,
             nextPositiveXValue: (expResult > 0)? itResult : values.positiveXValue,
             currNegativeXValue: values.negativeXValue,
             currPositiveXValue: values.positiveXValue,
+            evaluatedCurrNeg: evaluatedCurrNeg,
+            evaluatedCurrPos: evaluatedCurrPos,
             expressionResult: expResult,
             aproxResult: itResult,
         }
-        console.log("biseccion result", resultObj)
+        // console.log("biseccion result", resultObj)
         return resultObj;
     };
 }

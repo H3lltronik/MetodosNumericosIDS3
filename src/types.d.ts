@@ -31,6 +31,8 @@ type IterationResult = {
 type AproxIterationResult = {
     currNegativeXValue: number,
     currPositiveXValue: number,
+    evaluatedCurrNeg: number,
+    evaluatedCurrPos: number,
     nextNegativeXValue: number,
     nextPositiveXValue: number,
     expressionResult: number,
@@ -41,3 +43,16 @@ type TwoNumberValues = {
     a: number,
     b: number
 }
+
+type CalculusIterationResult = {
+    currNegativeXValue: number,
+    currPositiveXValue: number,
+    evaluatedCurrNeg: number,
+    evaluatedCurrPos: number,
+    nextNegativeXValue: number,
+    nextPositiveXValue: number,
+    expressionResult: number,
+    aproxResult: number,
+    error: number,
+}
+type CalculusIterationsResult = CalculusIterationResult[]

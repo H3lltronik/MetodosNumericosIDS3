@@ -1,10 +1,9 @@
 <script>
   import { Row, Col, TextField, Card, Radio, Button } from "svelte-materialify";
+  import {expression, fixedDecimals} from "../store"
 
-  let expression = "x^3 - 5";
   let errorMethod = null;
   let aproxMethod = null;
-  let decimals = 3;
 
   let stopCriteria = null;
   let stopCriteriaVal = null;
@@ -19,7 +18,7 @@
     <TextField
       class=""
       filled
-      bind:value={expression}
+      bind:value={$expression}
       hint="Mathematical expression"
     >
       <span>Expression</span>
@@ -32,7 +31,7 @@
       type="number"
       min={0}
       max={100}
-      bind:value={decimals}
+      bind:value={$fixedDecimals}
       hint="Decimal places"
     >
       <span>Precision</span>
