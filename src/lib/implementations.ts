@@ -16,7 +16,7 @@ import {
     stopCriteriaMethod as stopCriteriaMethodStore,
     stopCriteriaMethod,
     appAlerts as appAlertsStore,
-} from "../store";
+} from "../store/index";
 import ReglaFalsa from './methods/ReglaFalsa';
 
 const mathParser = new MathParser();

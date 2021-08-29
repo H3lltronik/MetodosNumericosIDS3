@@ -13,7 +13,7 @@
     DataTableCell,
     DataTableBody,
   } from "svelte-materialify";
-import { calculusIterationResults } from "../store";
+import { calculusIterationResults } from "../store/index";
 
   let values: AproxType = {
     negativeXValue: 2,

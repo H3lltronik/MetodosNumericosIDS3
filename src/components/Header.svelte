@@ -2,7 +2,7 @@
     import { AppBar, Button, Col, Icon, Row } from 'svelte-materialify';
     import AppAlerts from './AppAlerts.svelte';
     import { mdiWhiteBalanceSunny, mdiWeatherNight  } from '@mdi/js'
-    import { theme as themeStore } from '../store';
+    import { theme as themeStore } from '../store/index';
     import { get } from 'svelte/store';
 
     let icon = mdiWhiteBalanceSunny;

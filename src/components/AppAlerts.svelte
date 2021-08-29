@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Alert, Icon } from "svelte-materialify";
     import { mdiAlert } from '@mdi/js';
-    import { appAlerts } from "../store";
+    import { appAlerts } from "../store/index";
     import { get } from "svelte/store";
     
 

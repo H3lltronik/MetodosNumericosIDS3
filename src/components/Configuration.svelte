@@ -1,6 +1,6 @@
 <script>
   import { Row, Col, TextField, Card, Radio, Button } from "svelte-materialify";
-  import {expression, fixedDecimals, errorMethod, aproxMethod, stopCriteria, stopCriteriaVal, stopCriteriaMethod,} from "../store"
+  import {expression, fixedDecimals, errorMethod, aproxMethod, stopCriteria, stopCriteriaVal, stopCriteriaMethod,} from "../store/index"
 
   import {MethodStopType, MethodStopCondition, AproxMethodType, ErrorMethodType} from '../lib/Calculator/Calculator'
 </script>

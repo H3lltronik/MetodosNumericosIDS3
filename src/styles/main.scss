@@ -15,10 +15,10 @@ body, html {
     height: 100%;
     background-size: contain;
     background-position: center center;
-    background-image: url("bmc-button.svg");
+    background-image: url("../bmc-button.svg");
     @media (max-width: 730px) {
         height: 30px;
-        background-image: url("bmc-logo.svg");
+        background-image: url("../bmc-logo.svg");
     }
 }
 
@@ -27,7 +27,7 @@ body, html {
     height: 100%;
     background-size: contain;
     background-position: center center;
-    background-image: url("github-icon.svg");
+    background-image: url("../github-icon.svg");
     @media (max-width: 730px) {
         width: 30px;
         height: 30px;

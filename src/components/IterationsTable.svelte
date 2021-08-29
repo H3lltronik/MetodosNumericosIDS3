@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { varToItOver, iterationStep } from "../store";
+    import { varToItOver, iterationStep } from "../store/index";
     import { Row, Col, TextField, Card, Radio, Button, DataTable, DataTableHead, DataTableRow, DataTableCell, DataTableBody, } from "svelte-materialify";
     import {doTableIteration} from "../lib/implementations"
 
