@@ -3,8 +3,8 @@
   import { Row, Col, TextField, Card, Radio, Button, DataTable, DataTableHead, DataTableRow, DataTableCell, DataTableBody, } from "svelte-materialify";
   
   let values: AproxType = {
-    negativeXValue: 1,
-    positiveXValue: 2
+    negativeXValue: 2,
+    positiveXValue: 3
   };
   let results: CalculusIterationsResult = [];
 

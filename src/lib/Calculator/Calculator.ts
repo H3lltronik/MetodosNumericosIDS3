@@ -136,8 +136,8 @@ class Calculator {
             previousVal: 0,
         };
         if (this.currIteration > 0) {
-            payload.currentVal = this.iterationsStory[this.currIteration].nextNegativeXValue, 
-            payload.previousVal = this.iterationsStory[this.currIteration].nextPositiveXValue
+            payload.currentVal = this.iterationsStory[this.currIteration].aproxResult, 
+            payload.previousVal = this.iterationsStory[this.currIteration-1].aproxResult
         }
         const result = this.errorMethod.executeMethod(payload);
         this.errorValues.push(result);
