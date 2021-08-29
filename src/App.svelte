@@ -5,10 +5,11 @@
   import IterationsTable from './components/IterationsTable.svelte';
   import Plot from './components/Plot.svelte';
   import ResultsTable from './components/ResultsTable.svelte';
+  import { theme } from './store';
 </script>
 
 <main>
-  <MaterialApp>
+  <MaterialApp theme={$theme}>
     <Header/>
     <Container>
       <Row>

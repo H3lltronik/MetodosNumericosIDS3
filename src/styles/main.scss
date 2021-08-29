@@ -29,6 +29,7 @@ body, html {
     background-position: center center;
     background-image: url("github-icon.svg");
     @media (max-width: 730px) {
+        width: 30px;
         height: 30px;
     }
 }

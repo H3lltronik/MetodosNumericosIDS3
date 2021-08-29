@@ -5,7 +5,7 @@ export const count = writable<number>(0);
 export const iterationStep = writable<number>(1);
 export const varToItOver = writable("x");
 
-export const expression = writable( "e^(-x)-log(x)" );
+export const expression = writable( "x^3 - 10" );
 export const fixedDecimals = writable( 3 );
 
 export const errorMethod = writable( ErrorMethodType.Relative );
@@ -17,3 +17,5 @@ export const stopCriteriaMethod = writable( MethodStopType.Iterations );
 export const calculusIterationResults = writable<CalculusIterationsResult>();
 
 export const appAlerts = writable<AppAlert[]>([]);
+
+export const theme = writable<'light'|'dark'>("dark");
