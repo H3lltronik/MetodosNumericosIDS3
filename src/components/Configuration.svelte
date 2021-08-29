@@ -1,13 +1,8 @@
 <script>
   import { Row, Col, TextField, Card, Radio, Button } from "svelte-materialify";
-  import {expression, fixedDecimals} from "../store"
+  import {expression, fixedDecimals, errorMethod, aproxMethod, stopCriteria, stopCriteriaVal, stopCriteriaMethod,} from "../store"
 
-  let errorMethod = null;
-  let aproxMethod = null;
-
-  let stopCriteria = null;
-  let stopCriteriaVal = null;
-  let stopCriteriaMethod = null;
+  import {MethodStopType, MethodStopCondition, AproxMethodType, ErrorMethodType} from '../lib/Calculator/Calculator'
 </script>
 
 <Row class="pl-4 pr-4">
@@ -41,29 +36,29 @@
     <div class="text-h7 mb-4">
       <strong>Aproximation Method</strong>
     </div>
-    <Radio bind:group={errorMethod} value={1}>Bisection</Radio>
+    <Radio bind:group={$aproxMethod} value={AproxMethodType.Biseccion}>Bisection</Radio>
   </Col>
   <Col class="" sm={12}>
     <div class="text-h7 mb-4">
       <strong>Error Calculation Method</strong>
     </div>
-    <Radio bind:group={aproxMethod} value={1}>Absolute error</Radio>
-    <Radio bind:group={aproxMethod} value={2}>Relative error</Radio>
+    <Radio bind:group={$errorMethod} value={ErrorMethodType.Absolute}>Absolute error</Radio>
+    <Radio bind:group={$errorMethod} value={ErrorMethodType.Relative}>Relative error</Radio>
   </Col>
   <Col class="" sm={12}>
     <div class="text-h7 mb-4">
       <strong>Stop criteria method</strong>
     </div>
-    <Radio bind:group={stopCriteriaMethod} value={1}>Error</Radio>
-    <Radio bind:group={stopCriteriaMethod} value={2}>Iterations</Radio>
+    <Radio bind:group={$stopCriteriaMethod} value={MethodStopType.Error}>Error</Radio>
+    <Radio bind:group={$stopCriteriaMethod} value={MethodStopType.Iterations}>Iterations</Radio>
   </Col>
   <Col class="" sm={12}>
     <div class="text-h7 mb-4">
       <strong>Stop criteria type</strong>
     </div>
-    <Radio bind:group={stopCriteria} value={1}>Greater</Radio>
-    <Radio bind:group={stopCriteria} value={2}>Equal</Radio>
-    <Radio bind:group={stopCriteria} value={3}>Less</Radio>
+    <Radio bind:group={$stopCriteria} value={MethodStopCondition.Greater}>Greater</Radio>
+    <Radio bind:group={$stopCriteria} value={MethodStopCondition.Equal}>Equal</Radio>
+    <Radio bind:group={$stopCriteria} value={MethodStopCondition.Less}>Less</Radio>
   </Col>
   <Col class="" sm={12}>
     <div class="text-h7 mb-4">
@@ -76,7 +71,7 @@
       type="number"
       min={0}
       max={1000}
-      bind:value={stopCriteriaVal}
+      bind:value={$stopCriteriaVal}
     >
       <span>Criteria value</span>
     </TextField>

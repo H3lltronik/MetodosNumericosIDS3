@@ -1,10 +1,21 @@
-import Calculator, { MethodStopCondition, MethodStopType } from '../lib/Calculator/Calculator';
+import Biseccion from '../lib/methods/Biseccion';
 import MathParser from '../lib/MathParser/MathParser';
 import RelativeError from '../lib/Error/RelativeError/RelativeError';
-import Biseccion from '../lib/methods/Biseccion';
+import Calculator, { ErrorMethodType, MethodStopCondition, MethodStopType } from '../lib/Calculator/Calculator';
 
-import { expression as expressionStore, fixedDecimals as fixedDecimalsStore, varToItOver as varToItOverStore } from "../store";
 import { get } from "svelte/store";
+import AbsoluteError from './Error/AbsoluteError/AbsoluteError';
+import { 
+    expression as expressionStore, 
+    fixedDecimals as fixedDecimalsStore, 
+    varToItOver as varToItOverStore,
+    errorMethod as errorMethodStore,
+    aproxMethod as aproxMethodStore,
+    stopCriteria as stopCriteriaStore,
+    stopCriteriaVal as stopCriteriaValStore,
+    stopCriteriaMethod as stopCriteriaMethodStore,
+    stopCriteriaMethod,
+} from "../store";
 
 const mathParser = new MathParser();
 const calculator = new Calculator(mathParser);
@@ -43,14 +54,29 @@ export const doResultCalculus = (
     mathParser.setFixedDecimals(fixedDecimals);
     // 
 
-    const relativeError = new RelativeError(mathParser);
+    const errorMethod = get(errorMethodStore);
+    switch (errorMethod) {
+        case ErrorMethodType.Relative: {
+            const relativeError = new RelativeError(mathParser);
+            calculator.setErrorMethod(relativeError);
+            break;
+        }
+        case ErrorMethodType.Absolute: {
+            const absoluteError = new AbsoluteError(mathParser);
+            calculator.setErrorMethod(absoluteError);
+            break;
+        }
+    }
     const biseccion = new Biseccion(mathParser, expression, varToItOver);
 
     calculator.setAproxMethod(biseccion);
-    calculator.setErrorMethod(relativeError);
 
     calculator.setStartPoint(startPoint);
-    calculator.setStopCondition(MethodStopType.Iterations, MethodStopCondition.Greater, 3);
+    calculator.setStopCondition(
+        get(stopCriteriaMethodStore), 
+        get(stopCriteriaStore), 
+        get(stopCriteriaValStore)
+    );
     const result = calculator.beginExecution();
 
     if (result)

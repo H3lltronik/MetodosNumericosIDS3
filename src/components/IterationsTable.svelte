@@ -23,7 +23,7 @@
   
 <Row class="pl-4 pr-4">
   <Col sm={12}>
-    <div class="text-h6">Evaluations table</div>
+    <div class="text-h6">Iterations table</div>
   </Col>
   <Col sm={12} lg={6}>
       <TextField

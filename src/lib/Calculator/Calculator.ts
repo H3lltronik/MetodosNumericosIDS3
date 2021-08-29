@@ -11,6 +11,16 @@ export const enum MethodStopCondition {
     Less = 3
 }
 
+export const enum AproxMethodType {
+    Biseccion = 1,
+    ReglaFalsa = 2,
+}
+
+export const enum ErrorMethodType {
+    Absolute = 1,
+    Relative = 2,
+}
+
 class Calculator {
     private mathParser: MathParserInterface;
     private aproxMethod: AproxExecutable;
@@ -78,8 +88,14 @@ class Calculator {
         const result: CalculusIterationsResult = this.iterationsStory.map((it, index): CalculusIterationResult => {
             return {...it, error: this.errorValues[index]}
         })
+        this.clear()
 
         return result;
+    }
+
+    clear () {
+        this.iterationsStory = [];
+        this.errorValues = [];
     }
 
     setStartPoint (values: AproxType) {
