@@ -1,4 +1,4 @@
-const MAX_ITERATIONS_LIMIT = 10000;
+const MAX_ITERATIONS_LIMIT = 100;
 
 export const enum MethodStopType {
     Error = 1,

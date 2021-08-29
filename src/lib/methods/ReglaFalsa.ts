@@ -1,4 +1,4 @@
-class Biseccion implements AproxExecutable {
+class ReglaFalsa implements AproxExecutable {
     private expression: string;
     private variable: string;
     private mathParser: MathParserInterface;
@@ -10,15 +10,44 @@ class Biseccion implements AproxExecutable {
     }
 
     executeMethod(values: AproxType): AproxIterationResult {
-        this.mathParser.setExpression("(negativeXValue + positiveXValue) / 2")
+        // Getting fa y fb
+        this.mathParser.setExpression(this.expression)
         this.mathParser.setVariableValues([
             {
-                variable: "negativeXValue",
+                variable: this.variable,
+                value: values.negativeXValue
+            },
+        ])
+        const fa = this.mathParser.execute();
+        this.mathParser.clear();
+        
+        this.mathParser.setExpression(this.expression)
+        this.mathParser.setVariableValues([
+            {
+                variable: this.variable,
+                value: values.positiveXValue
+            },
+        ])
+        const fb = this.mathParser.execute();
+        this.mathParser.clear();
+
+        this.mathParser.setExpression("(a*fb - b*fa)/(fb - fa)")
+        this.mathParser.setVariableValues([
+            {
+                variable: "a",
                 value: values.negativeXValue
             },
             {
-                variable: "positiveXValue",
+                variable: "b",
                 value: values.positiveXValue
+            },
+            {
+                variable: "fa",
+                value: fa
+            },
+            {
+                variable: "fb",
+                value: fb
             },
         ])
         const itResult = this.mathParser.execute();
@@ -60,4 +89,4 @@ class Biseccion implements AproxExecutable {
     };
 }
 
-export default Biseccion;
+export default ReglaFalsa;

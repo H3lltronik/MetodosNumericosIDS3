@@ -36,7 +36,8 @@
     <div class="text-h7 mb-4">
       <strong>Aproximation Method</strong>
     </div>
-    <Radio bind:group={$aproxMethod} value={AproxMethodType.Biseccion}>Bisection</Radio>
+    <Radio bind:group={$aproxMethod} value={AproxMethodType.Biseccion}>Biseccion</Radio>
+    <Radio bind:group={$aproxMethod} value={AproxMethodType.ReglaFalsa}>Regla Falsa</Radio>
   </Col>
   <Col class="" sm={12}>
     <div class="text-h7 mb-4">
@@ -75,8 +76,5 @@
     >
       <span>Criteria value</span>
     </TextField>
-  </Col>
-  <Col sm={12}>
-    <Button block>EVALUATE</Button>
   </Col>
 </Row>

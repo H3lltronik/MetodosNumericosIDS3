@@ -1,7 +1,7 @@
 import Biseccion from '../lib/methods/Biseccion';
 import MathParser from '../lib/MathParser/MathParser';
 import RelativeError from '../lib/Error/RelativeError/RelativeError';
-import Calculator, { ErrorMethodType, MethodStopCondition, MethodStopType } from '../lib/Calculator/Calculator';
+import Calculator, { AproxMethodType, ErrorMethodType, MethodStopCondition, MethodStopType } from '../lib/Calculator/Calculator';
 
 import { get } from "svelte/store";
 import AbsoluteError from './Error/AbsoluteError/AbsoluteError';
@@ -16,6 +16,7 @@ import {
     stopCriteriaMethod as stopCriteriaMethodStore,
     stopCriteriaMethod,
 } from "../store";
+import ReglaFalsa from './methods/ReglaFalsa';
 
 const mathParser = new MathParser();
 const calculator = new Calculator(mathParser);
@@ -67,9 +68,20 @@ export const doResultCalculus = (
             break;
         }
     }
-    const biseccion = new Biseccion(mathParser, expression, varToItOver);
 
-    calculator.setAproxMethod(biseccion);
+    const aproxMethod = get(aproxMethodStore);
+    switch (aproxMethod) {
+        case AproxMethodType.Biseccion: {
+            const biseccion = new Biseccion(mathParser, expression, varToItOver);
+            calculator.setAproxMethod(biseccion);
+            break;
+        }
+        case AproxMethodType.ReglaFalsa: {
+            const reglaFalsa = new ReglaFalsa(mathParser, expression, varToItOver);
+            calculator.setAproxMethod(reglaFalsa);
+            break;
+        }
+    }
 
     calculator.setStartPoint(startPoint);
     calculator.setStopCondition(
