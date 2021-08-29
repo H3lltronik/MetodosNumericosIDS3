@@ -17,15 +17,14 @@
       );
       iterations = itResults.iterations.reverse();
       expressionUsed = itResults.expression;
-      console.log("done!", iterations)
     }
   </script>
   
 <Row class="pl-4 pr-4">
-  <Col sm={12}>
+  <Col cols={12}>
     <div class="text-h6">Iterations table</div>
   </Col>
-  <Col sm={12} lg={6}>
+  <Col cols={6}>
       <TextField
         filled dense
         type="number"
@@ -34,7 +33,7 @@
         <span>From</span>
       </TextField>
   </Col>
-  <Col sm={12} lg={6}>
+  <Col cols={6}>
       <TextField
         filled dense
         type="number"
@@ -43,7 +42,7 @@
         <span>To</span>
       </TextField>
   </Col>
-  <Col sm={12} lg={6}>
+  <Col cols={6}>
       <TextField
         filled dense
         type="number"
@@ -52,7 +51,7 @@
         <span>Step</span>
       </TextField>
   </Col>
-  <Col sm={12} lg={6}>
+  <Col cols={6}>
       <TextField
         filled dense
         bind:value={$varToItOver}
@@ -61,19 +60,19 @@
         <span>Variable</span>
       </TextField>
   </Col>
-  <Col sm={12}>
+  <Col cols={12}>
       <Button block on:click={loadIterations}>GO</Button>
   </Col>
-  <Col sm={12}>
+  <Col cols={12}>
     <Row style="justify-content: center;">
       {#if iterations.length > 0}
-      <Col sm={12}>
-        <small class="">Evaluating 
+      <Col cols={12}>
+        <colsall class="">Evaluating 
           <strong>{expressionUsed}</strong> from 
           <strong>{range[0]}</strong> to 
           <strong>{range[1]}</strong> on 
           <strong>{$varToItOver}</strong>:
-        </small>
+        </colsall>
       </Col>
         
         <DataTable>

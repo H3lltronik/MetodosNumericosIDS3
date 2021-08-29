@@ -1,3 +1,45 @@
 body, html {
     font-family: 'Roboto', sans-serif;
 }
+
+.results-table {
+    min-width: 730px;
+    &_container {
+        overflow-x: auto;
+        position: relative;
+    }
+}
+
+.buy-me-a-coffee {
+    width: 120px;
+    height: 100%;
+    background-size: contain;
+    background-position: center center;
+    background-image: url("bmc-button.svg");
+    @media (max-width: 730px) {
+        height: 30px;
+        background-image: url("bmc-logo.svg");
+    }
+}
+
+.github {
+    width: 50px;
+    height: 100%;
+    background-size: contain;
+    background-position: center center;
+    background-image: url("github-icon.svg");
+    @media (max-width: 730px) {
+        height: 30px;
+    }
+}
+
+.link {
+    height: 100%;
+    display: flex;
+    padding: 10px 0;
+    align-items: center;
+}
+
+.text-nowrap {
+    white-space: nowrap;
+}

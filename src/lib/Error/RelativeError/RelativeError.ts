@@ -19,7 +19,6 @@ class RelativeError implements ErrorExecutable {
                 value: values.previousVal
             },
         ])
-        console.log("values", values)
         const result = this.mathParser.execute();
         this.mathParser.clear()
 

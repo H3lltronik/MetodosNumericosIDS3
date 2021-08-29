@@ -4,7 +4,7 @@ import {MethodStopType, MethodStopCondition, AproxMethodType, ErrorMethodType} f
 export const count = writable(0);
 export const varToItOver = writable("x");
 
-export const expression = writable( "x^3 - 10" );
+export const expression = writable( "e^(-x)-log(x)" );
 export const fixedDecimals = writable( 3 );
 
 export const errorMethod = writable( ErrorMethodType.Relative );

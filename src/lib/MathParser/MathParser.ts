@@ -8,6 +8,7 @@ class MathParser implements MathParserInterface {
     constructor() {
         this.expression = "";
         this.parser = parser();
+        //  window.mathParser = this.parser
     }
 
     absoluteValue = (number: number) => {
