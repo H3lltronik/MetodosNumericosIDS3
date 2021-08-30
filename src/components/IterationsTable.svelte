@@ -2,12 +2,14 @@
     import { varToItOver, iterationStep } from "../store/index";
     import { Row, Col, TextField, Card, Radio, Button, DataTable, DataTableHead, DataTableRow, DataTableCell, DataTableBody, } from "svelte-materialify";
     import {doTableIteration} from "../lib/implementations"
+import { get } from "svelte/store";
 
     let range = ["-3", "3"];
     let step = 1;
 
     let iterations: IterationResult[] = []
     let expressionUsed = "";
+    let varUsed = "";
 
     let loadIterations = () => {
       const itResults = doTableIteration(
@@ -18,6 +20,7 @@
       if(!itResults) return
       iterations = itResults.iterations.reverse();
       expressionUsed = itResults.expression;
+      varUsed = get(varToItOver);
     }
   </script>
   
@@ -73,7 +76,7 @@
           <strong>{expressionUsed}</strong> from 
           <strong>{range[0]}</strong> to 
           <strong>{range[1]}</strong> on 
-          <strong>{$varToItOver}</strong>:
+          <strong>{varUsed}</strong>:
         </colsall>
       </Col>
         

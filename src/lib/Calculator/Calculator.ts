@@ -73,6 +73,7 @@ class Calculator {
                 input: i,
                 result: this.mathParser.execute()
             });
+            if (i >= MAX_ITERATIONS_LIMIT) break;
         }
 
         return results;
