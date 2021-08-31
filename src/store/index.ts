@@ -11,10 +11,8 @@ export const fixedDecimals = writable( 3 );
 export const errorMethod = writable( ErrorMethodType.Relative );
 export const aproxMethod = writable( AproxMethodType.Biseccion );
 export const stopCriteria = writable( MethodStopCondition.Equal );
-export const stopCriteriaVal = writable( 0.014 );
-export const stopCriteriaMethod = writable( MethodStopType.Error );
-
-export const calculusIterationResults = writable<CalculusIterationsResult>();
+export const stopCriteriaVal = writable( 4 );
+export const stopCriteriaMethod = writable( MethodStopType.Iterations );
 
 export const appAlerts = writable<AppAlert[]>([]);
 

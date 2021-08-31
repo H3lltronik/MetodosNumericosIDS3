@@ -50,8 +50,8 @@ export const doTableIteration = (
 }
 
 export const doResultCalculus = (
-    startPoint: AproxType
-    ): CalculusIterationsResult|undefined => {
+    startPoint: ClosedIntervalPayload
+    ): ResultsTable|undefined => {
     const expression = get (expressionStore);
     const fixedDecimals = get (fixedDecimalsStore);
     const varToItOver = get (varToItOverStore);
@@ -109,6 +109,7 @@ export const doResultCalculus = (
             text: "Could not evaluate. Verify your expression and values and try again",
             type: 'error',
         })
+        console.error(error);
     }
 }
 

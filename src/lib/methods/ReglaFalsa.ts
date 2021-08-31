@@ -9,7 +9,7 @@ class ReglaFalsa implements AproxExecutable {
         this.mathParser = mathParser
     }
 
-    executeMethod(values: AproxType): AproxIterationResult {
+    executeMethod(values: ClosedIntervalPayload): AproxIterationResult {
         // Getting fa y fb
         this.mathParser.setExpression(this.expression)
         this.mathParser.setVariableValues([
@@ -76,16 +76,68 @@ class ReglaFalsa implements AproxExecutable {
         const evaluatedCurrPos = this.mathParser.execute();
         
         const resultObj: AproxIterationResult = {
-            nextNegativeXValue: (expResult < 0)? itResult : values.negativeXValue,
-            nextPositiveXValue: (expResult > 0)? itResult : values.positiveXValue,
-            currNegativeXValue: values.negativeXValue,
-            currPositiveXValue: values.positiveXValue,
-            evaluatedCurrNeg: evaluatedCurrNeg,
-            evaluatedCurrPos: evaluatedCurrPos,
-            expressionResult: expResult,
-            aproxResult: itResult,
+            iterationData: {
+                negativeXValue: (expResult < 0)? itResult : values.negativeXValue,
+                positiveXValue: (expResult > 0)? itResult : values.positiveXValue,
+            },
+            result: {
+                currNegativeXValue: values.negativeXValue,
+                currPositiveXValue: values.positiveXValue,
+                evaluatedCurrNeg: evaluatedCurrNeg,
+                evaluatedCurrPos: evaluatedCurrPos,
+                expressionResult: expResult,
+                aproxResult: itResult,
+            }
         }
         return resultObj;
+    };
+
+    formatResultsTotTable = (values: CalculusIterationsResult): ResultsTable => {
+        const headers = ["N", "Negative X", "F(NegX)", "Positive X", "F(PosX)", "Approximation", "F(Approx)", "Error"];
+        const rows = [];
+
+        values.forEach((element, index) => {
+            const row: ResultRow = [];
+            row.push({
+                column: headers[0],
+                value: index
+            });
+            row.push({
+                column: headers[1],
+                value: element.currNegativeXValue
+            });
+            row.push({
+                column: headers[2],
+                value: element.evaluatedCurrNeg
+            });
+            row.push({
+                column: headers[3],
+                value: element.currPositiveXValue
+            });
+            row.push({
+                column: headers[4],
+                value: element.evaluatedCurrPos
+            });
+            row.push({
+                column: headers[5],
+                value: element.aproxResult
+            });
+            row.push({
+                column: headers[6],
+                value: element.expressionResult
+            });
+            row.push({
+                column: headers[7],
+                value: element.error
+            });
+
+            rows.push(row);
+        });
+
+        return {
+            headers,
+            rows,
+        }
     };
 }
 

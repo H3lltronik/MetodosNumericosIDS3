@@ -13,19 +13,17 @@
     DataTableCell,
     DataTableBody,
   } from "svelte-materialify";
-import { calculusIterationResults } from "../store/index";
 
-  let values: AproxType = {
+  let values: ClosedIntervalPayload = {
     negativeXValue: 2,
     positiveXValue: 3,
   };
-  let results: CalculusIterationsResult|undefined = [];
+  let results: ResultsTable|undefined = {headers: [], rows: []};
 
   let doCalculus = () => {
     const res = doResultCalculus(values);
     if(!res) return
     results = res
-    calculusIterationResults.set(results);
   };
 </script>
 
@@ -59,34 +57,26 @@ import { calculusIterationResults } from "../store/index";
       </Col>
     </Row>
   </Col>
-  <Col cols={12} class="results-table_container">
-    <DataTable class="results-table">
-      <DataTableHead>
-        <DataTableRow>
-          <DataTableCell class="text-nowrap" numeric>N</DataTableCell>
-          <DataTableCell class="text-nowrap" numeric>Negative X</DataTableCell>
-          <DataTableCell class="text-nowrap" numeric>F(NegX)</DataTableCell>
-          <DataTableCell class="text-nowrap" numeric>Positive X</DataTableCell>
-          <DataTableCell class="text-nowrap" numeric>F(PosX)</DataTableCell>
-          <DataTableCell class="text-nowrap" numeric>Aproximation</DataTableCell>
-          <DataTableCell class="text-nowrap" numeric>F(Aprox)</DataTableCell>
-          <DataTableCell class="text-nowrap" numeric>Error</DataTableCell>
-        </DataTableRow>
-      </DataTableHead>
-      <DataTableBody>
-        {#each results as result, i}
+  {#if results}
+    <Col cols={12} class="results-table_container">
+      <DataTable class="results-table">
+        <DataTableHead>
           <DataTableRow>
-            <DataTableCell numeric>{i}</DataTableCell>
-            <DataTableCell numeric>{result.currNegativeXValue}</DataTableCell>
-            <DataTableCell numeric>{result.evaluatedCurrNeg}</DataTableCell>
-            <DataTableCell numeric>{result.currPositiveXValue}</DataTableCell>
-            <DataTableCell numeric>{result.evaluatedCurrPos}</DataTableCell>
-            <DataTableCell numeric>{result.aproxResult}</DataTableCell>
-            <DataTableCell numeric>{result.expressionResult}</DataTableCell>
-            <DataTableCell numeric>{result.error}</DataTableCell>
+            {#each results.headers as header}
+              <DataTableCell class="text-nowrap" numeric>{header}</DataTableCell>
+            {/each}
           </DataTableRow>
-        {/each}
-      </DataTableBody>
-    </DataTable>
-  </Col>
+        </DataTableHead>
+        <DataTableBody>
+          {#each results.rows as row, i}
+          <DataTableRow>
+                {#each row as rowItem}
+                  <DataTableCell numeric>{rowItem.value}</DataTableCell>
+                {/each}
+              </DataTableRow>
+          {/each}
+        </DataTableBody>
+      </DataTable>
+    </Col>
+  {/if}
 </Row>

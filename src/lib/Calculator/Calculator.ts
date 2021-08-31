@@ -24,7 +24,7 @@ export const enum ErrorMethodType {
 class Calculator {
     private mathParser: MathParserInterface;
     private aproxMethod: AproxExecutable;
-    private startPoint: AproxType;
+    private startPoint: ClosedIntervalPayload;
 
     private errorValues: number[];
     private errorMethod: ErrorExecutable;
@@ -79,45 +79,36 @@ class Calculator {
         return results;
     }
 
-    beginExecution = (): CalculusIterationsResult => {
+    beginExecution = (): ResultsTable => {
         if (!this.startPoint) { console.error("startPoint not defined"); return null; }
         if (!this.aproxMethod) { console.error("aproxMethod not defined"); return null; }
 
         this.execution();
 
-        // Format result
-        const result: CalculusIterationsResult = this.iterationsStory.map((it, index): CalculusIterationResult => {
-            return {...it, error: this.errorValues[index]}
-        })
+        // Format results
+        const result: any = this.iterationsStory.map(
+            (it, index): any => {
+                return {...it.result, error: this.errorValues[index]}
+            }
+        )
+        const tableFormatted = this.aproxMethod.formatResultsTotTable(result);
         this.clear()
 
-        return result;
-    }
-
-    clear () {
-        this.iterationsStory = [];
-        this.errorValues = [];
-    }
-
-    setStartPoint (values: AproxType) {
-        this.startPoint = values;
+        return tableFormatted;
     }
 
     private execution = () => {
         this.currIteration = 0;
         let firstRes = this.aproxMethod.executeMethod(this.startPoint);
-        this.calculateError();
         this.iterationsStory.push({...firstRes, ...this.startPoint});
+        this.calculateError();
         this.currIteration++;
         
         let lastRes: AproxIterationResult = {...firstRes};
-        let currRes: AproxIterationResult = { nextNegativeXValue: 0, nextPositiveXValue: 0, currNegativeXValue: 0, currPositiveXValue: 0, expressionResult: 0, aproxResult: 0, evaluatedCurrNeg: 0, evaluatedCurrPos: 0};
+        let currRes: AproxIterationResult = {};
 
         while(true) {
-            currRes = this.aproxMethod.executeMethod({
-                negativeXValue: lastRes.nextNegativeXValue, 
-                positiveXValue: lastRes.nextPositiveXValue
-            });
+            currRes = this.aproxMethod.executeMethod(lastRes.iterationData);
             
             lastRes = {...currRes};
 
@@ -129,6 +120,15 @@ class Calculator {
         }
     }
 
+    clear () {
+        this.iterationsStory = [];
+        this.errorValues = [];
+    }
+
+    setStartPoint (values: ClosedIntervalPayload) {
+        this.startPoint = values;
+    }
+
     private calculateError = () => {
         if (!this.errorMethod) { console.error("errorMethod not defined"); return false }
 
@@ -136,10 +136,20 @@ class Calculator {
             currentVal: 0,
             previousVal: 0,
         };
-        if (this.currIteration > 0) {
-            payload.currentVal = this.iterationsStory[this.currIteration].aproxResult, 
-            payload.previousVal = this.iterationsStory[this.currIteration-1].aproxResult
+
+        if (this.currIteration <= 0) {
+            this.errorValues.push(0);
+            return;
         }
+        
+        const itResultCurr = this.iterationsStory[this.currIteration].result ?? null;
+        const itResultBef = this.iterationsStory[this.currIteration-1].result ?? null;
+
+        if ("aproxResult" in itResultCurr && "aproxResult" in itResultBef) {
+            payload.currentVal = itResultCurr.aproxResult, 
+            payload.previousVal = itResultBef.aproxResult
+        }
+        console.log("wat error payload", payload);
         const result = this.errorMethod.executeMethod(payload);
         this.errorValues.push(result);
     }

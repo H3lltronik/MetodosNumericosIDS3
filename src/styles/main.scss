@@ -4,6 +4,9 @@ body, html {
 
 .results-table {
     min-width: 730px;
+    table {
+        width: 100%;
+    }
     &_container {
         overflow-x: auto;
         position: relative;

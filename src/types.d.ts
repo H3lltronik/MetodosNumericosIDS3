@@ -1,8 +1,18 @@
 interface AproxExecutable {
-    executeMethod: (values: AproxType) => AproxIterationResult;
+    executeMethod: (values: ApproximationPayload) => AproxIterationResult;
+    formatResultsTotTable: (values: CalculusIterationsResult) => ResultsTable
 }
 
-type AproxType = {negativeXValue: number, positiveXValue: number}
+type ClosedIntervalPayload = {
+    negativeXValue: number,
+    positiveXValue: number
+}
+
+type OpenIntervalPayload = {
+    start: number,
+}
+
+type ApproximationPayload = ClosedIntervalPayload|OpenIntervalPayload
 
 interface ErrorExecutable {
     executeMethod: (values: ErrorValType) => number;
@@ -33,15 +43,22 @@ type TableIterations = {
     expression: string,
 }
 
-type AproxIterationResult = {
+type ClosedIntervalResult = {
     currNegativeXValue: number,
     currPositiveXValue: number,
     evaluatedCurrNeg: number,
     evaluatedCurrPos: number,
-    nextNegativeXValue: number,
-    nextPositiveXValue: number,
     expressionResult: number,
     aproxResult: number,
+}
+
+type NewtonRaphsonResult = {
+    newtonTest: number,
+}
+
+type AproxIterationResult = {
+    iterationData: ApproximationPayload,
+    result: ClosedIntervalResult|NewtonRaphsonResult
 }
 
 type TwoNumberValues = {
@@ -50,17 +67,23 @@ type TwoNumberValues = {
 }
 
 type CalculusIterationResult = {
-    currNegativeXValue: number,
-    currPositiveXValue: number,
-    evaluatedCurrNeg: number,
-    evaluatedCurrPos: number,
-    nextNegativeXValue: number,
-    nextPositiveXValue: number,
-    expressionResult: number,
-    aproxResult: number,
+    currNegativeXValue?: number,
+    currPositiveXValue?: number,
+    evaluatedCurrNeg?: number,
+    evaluatedCurrPos?: number,
+    expressionResult?: number,
+    aproxResult?: number,
+    newtonTest?: number
     error: number,
 }
 type CalculusIterationsResult = CalculusIterationResult[]
+
+type ResultRow = {column: string, value: any}[]
+
+type ResultsTable = {
+    headers: any[],
+    rows: ResultRow[],
+}
 
 type AppAlert = {
     type: 'error'|'success',
