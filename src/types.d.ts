@@ -25,6 +25,7 @@ interface MathParserInterface {
     execute: (fixedDecimals?: number) => number,
     absoluteValue: (number: number) => number,
     setExpression: (expression: string) => void,
+    derivative: (expression: string, variable: string) => string,
     setVariableValues: (variableVlues: VariableSetter[]) => void,
 }
 
@@ -53,7 +54,10 @@ type ClosedIntervalResult = {
 }
 
 type NewtonRaphsonResult = {
-    newtonTest: number,
+    aproxResult?: number,
+    evaluatedCurr?: number,
+    evaluatedCurrDeriv?: number,
+    currXi?: number,
 }
 
 type AproxIterationResult = {
@@ -73,7 +77,9 @@ type CalculusIterationResult = {
     evaluatedCurrPos?: number,
     expressionResult?: number,
     aproxResult?: number,
-    newtonTest?: number
+    evaluatedCurr?: number,
+    evaluatedCurrDeriv?: number,
+    currXi?: number,
     error: number,
 }
 type CalculusIterationsResult = CalculusIterationResult[]

@@ -14,6 +14,7 @@ export const enum MethodStopCondition {
 export const enum AproxMethodType {
     Biseccion = 1,
     ReglaFalsa = 2,
+    NewtonRaphson = 3,
 }
 
 export const enum ErrorMethodType {
@@ -24,7 +25,7 @@ export const enum ErrorMethodType {
 class Calculator {
     private mathParser: MathParserInterface;
     private aproxMethod: AproxExecutable;
-    private startPoint: ClosedIntervalPayload;
+    private startPoint: ApproximationPayload;
 
     private errorValues: number[];
     private errorMethod: ErrorExecutable;
@@ -125,7 +126,7 @@ class Calculator {
         this.errorValues = [];
     }
 
-    setStartPoint (values: ClosedIntervalPayload) {
+    setStartPoint (values: ApproximationPayload) {
         this.startPoint = values;
     }
 

@@ -18,6 +18,7 @@ import {
     appAlerts as appAlertsStore,
 } from "../store/index";
 import ReglaFalsa from './methods/ReglaFalsa';
+import NewtonRaphson from './methods/NewtonRaphson';
 
 const mathParser = new MathParser();
 const calculator = new Calculator(mathParser);
@@ -50,7 +51,7 @@ export const doTableIteration = (
 }
 
 export const doResultCalculus = (
-    startPoint: ClosedIntervalPayload
+    startPoint: ApproximationPayload
     ): ResultsTable|undefined => {
     const expression = get (expressionStore);
     const fixedDecimals = get (fixedDecimalsStore);
@@ -84,6 +85,11 @@ export const doResultCalculus = (
         case AproxMethodType.ReglaFalsa: {
             const reglaFalsa = new ReglaFalsa(mathParser, expression, varToItOver);
             calculator.setAproxMethod(reglaFalsa);
+            break;
+        }
+        case AproxMethodType.NewtonRaphson: {
+            const newtonRaphson = new NewtonRaphson(mathParser, expression, varToItOver);
+            calculator.setAproxMethod(newtonRaphson);
             break;
         }
     }

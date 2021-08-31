@@ -1,4 +1,4 @@
-import { evaluate, parser, abs } from 'mathjs'
+import { evaluate, parser, abs, derivative as mathDerivative } from 'mathjs'
 
 class MathParser implements MathParserInterface {
     private expression: string;
@@ -8,7 +8,6 @@ class MathParser implements MathParserInterface {
     constructor() {
         this.expression = "";
         this.parser = parser();
-        //  window.mathParser = this.parser
     }
 
     absoluteValue = (number: number) => {
@@ -18,6 +17,10 @@ class MathParser implements MathParserInterface {
     clear = () => {
         this.parser.clear();
     };
+
+    derivative = (expression: string, variable: string) => {
+        return mathDerivative(expression, variable).toString();
+    }
 
     execute = () => {
         const result = this.parser.evaluate( this.expression );
