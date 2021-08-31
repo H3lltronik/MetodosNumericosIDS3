@@ -2,6 +2,13 @@ body, html {
     font-family: 'Roboto', sans-serif;
 }
 
+#app {
+    &, .s-app {
+        min-height: 100vh;
+    }
+}
+
+
 .results-table {
     min-width: 730px;
     table {

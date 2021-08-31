@@ -1,8 +1,8 @@
 <script lang="ts">
+  import { expression } from "../store";
   import { onMount } from "svelte";
   import { Button, Col, Row, TextField } from "svelte-materialify";
   import Plot from "../lib/Charts/Plot";
-
   import { doTableIteration } from "../lib/implementations";
 
   let step = 1;
@@ -27,6 +27,7 @@
 <Row class="pl-4 pr-4">
   <Col cols={12}>
     <div class="text-h6">Plotting expression</div>
+    <div class="mt-3 mb-3">Plotting {$expression}</div>
     <Row>
         <Col cols={12} md={4}>
             <TextField
