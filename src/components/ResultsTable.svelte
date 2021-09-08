@@ -29,7 +29,7 @@
   let doCalculus = () => {
     if (
       (!values.negativeXValue || !values.positiveXValue)
-      || !values.start
+      && !values.start
     ) {
       addAlert({ id: Date.now(), text: "Fill the initial values to begin", type: 'error' })
       return
