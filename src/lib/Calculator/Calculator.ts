@@ -133,24 +133,34 @@ class Calculator {
     private calculateError = () => {
         if (!this.errorMethod) { console.error("errorMethod not defined"); return false }
 
+        if (this.currIteration <= 0 && this.aproxMethod.methodType == "closed") {
+            this.errorValues.push(0);
+            return;
+        }
+
         const payload: ErrorValType = {
             currentVal: 0,
             previousVal: 0,
         };
+        const itResultCurr = this.iterationsStory[this.currIteration].result ?? null;
+        let itResultBef = null;
 
-        if (this.currIteration <= 0) {
-            this.errorValues.push(0);
-            return;
+        if (this.currIteration > 0) {
+            itResultBef = this.iterationsStory[this.currIteration-1].result;
+            if ("aproxResult" in itResultBef) {
+                payload.previousVal = itResultBef.aproxResult
+            }
+        }
+
+        if ("aproxResult" in itResultCurr) {
+            payload.currentVal = itResultCurr.aproxResult
+        }
+
+        if (this.iterationsStory[this.currIteration].start) {
+            payload.previousVal = this.iterationsStory[this.currIteration].start
         }
         
-        const itResultCurr = this.iterationsStory[this.currIteration].result ?? null;
-        const itResultBef = this.iterationsStory[this.currIteration-1].result ?? null;
-
-        if ("aproxResult" in itResultCurr && "aproxResult" in itResultBef) {
-            payload.currentVal = itResultCurr.aproxResult, 
-            payload.previousVal = itResultBef.aproxResult
-        }
-        console.log("wat error payload", payload);
+        
         const result = this.errorMethod.executeMethod(payload);
         this.errorValues.push(result);
     }

@@ -2,6 +2,7 @@ class NewtonRaphson implements AproxExecutable {
     private expression: string;
     private variable: string;
     private mathParser: MathParserInterface;
+    methodType = "opened";
 
     constructor(mathParser: MathParserInterface, expression: string, variable: string)  {
         this.variable = variable
@@ -78,7 +79,7 @@ class NewtonRaphson implements AproxExecutable {
                 column: headers[0],
                 value: index
             });
-            row.push({
+            row.push({ // #
                 column: headers[1],
                 value: element.currXi
             });
@@ -90,7 +91,7 @@ class NewtonRaphson implements AproxExecutable {
                 column: headers[3],
                 value: element.evaluatedCurrDeriv
             });
-            row.push({
+            row.push({ // #
                 column: headers[4],
                 value: element.aproxResult
             });

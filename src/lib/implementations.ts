@@ -47,6 +47,8 @@ export const doTableIteration = (
             text: "Could not evaluate. Verify your expression and values and try again",
             type: 'error',
         })
+        console.error("Error when trying to iterate values");
+        console.error(error);
     }
 }
 
@@ -115,6 +117,7 @@ export const doResultCalculus = (
             text: "Could not evaluate. Verify your expression and values and try again",
             type: 'error',
         })
+        console.error("Error when trying to approximate to root");
         console.error(error);
     }
 }

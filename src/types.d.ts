@@ -1,6 +1,7 @@
 interface AproxExecutable {
     executeMethod: (values: ApproximationPayload) => AproxIterationResult;
-    formatResultsTotTable: (values: CalculusIterationsResult) => ResultsTable
+    formatResultsTotTable: (values: CalculusIterationsResult) => ResultsTable;
+    methodType: String;
 }
 
 type ClosedIntervalPayload = {

@@ -2,6 +2,7 @@ class ReglaFalsa implements AproxExecutable {
     private expression: string;
     private variable: string;
     private mathParser: MathParserInterface;
+    methodType = "closed";
 
     constructor(mathParser: MathParserInterface, expression: string, variable: string)  {
         this.variable = variable
