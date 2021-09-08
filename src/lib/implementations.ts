@@ -19,6 +19,7 @@ import {
 } from "../store/index";
 import ReglaFalsa from './methods/ReglaFalsa';
 import NewtonRaphson from './methods/NewtonRaphson';
+import Secante from './methods/Secante';
 
 const mathParser = new MathParser();
 const calculator = new Calculator(mathParser);
@@ -92,6 +93,11 @@ export const doResultCalculus = (
         case AproxMethodType.NewtonRaphson: {
             const newtonRaphson = new NewtonRaphson(mathParser, expression, varToItOver);
             calculator.setAproxMethod(newtonRaphson);
+            break;
+        }
+        case AproxMethodType.Secante: {
+            const secante = new Secante(mathParser, expression, varToItOver);
+            calculator.setAproxMethod(secante);
             break;
         }
     }

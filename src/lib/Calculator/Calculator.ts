@@ -15,6 +15,7 @@ export const enum AproxMethodType {
     Biseccion = 1,
     ReglaFalsa = 2,
     NewtonRaphson = 3,
+    Secante = 4,
 }
 
 export const enum ErrorMethodType {
@@ -158,6 +159,10 @@ class Calculator {
 
         if (this.iterationsStory[this.currIteration].start) {
             payload.previousVal = this.iterationsStory[this.currIteration].start
+        } 
+        // console.log("wa", this.iterationsStory[this.currIteration])
+        else if (this.iterationsStory[this.currIteration].positiveXValue) {
+            payload.previousVal = this.iterationsStory[this.currIteration].positiveXValue
         }
         
         

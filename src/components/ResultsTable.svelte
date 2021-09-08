@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { doResultCalculus } from "../lib/implementations";
+  import { addAlert, doResultCalculus } from "../lib/implementations";
   import {
     Row,
     Col,
@@ -18,18 +18,37 @@
   import ToggleEyeIcon from "./ToggleEyeIcon.svelte";
   let isShowing = true;
 
-  let values: ApproximationPayload = {
-    negativeXValue: 2,
-    positiveXValue: 3,
-    start: 8,
+  const initialValues: ApproximationPayload = {
+    negativeXValue: null,
+    positiveXValue: null,
+    start: null,
   };
+  let values: ApproximationPayload = {...initialValues};
   let results: ResultsTable|undefined = {headers: [], rows: []};
 
   let doCalculus = () => {
+    if (
+      (!values.negativeXValue || !values.positiveXValue)
+      || !values.start
+    ) {
+      addAlert({ id: Date.now(), text: "Fill the initial values to begin", type: 'error' })
+      return
+    }
+
     const res = doResultCalculus(values);
     if(!res) return
     results = res
   };
+
+  let isOpened = null
+  let isClosed = null
+
+  $: {
+    isOpened = $aproxMethodStore == AproxMethodType.Biseccion || $aproxMethodStore == AproxMethodType.ReglaFalsa || $aproxMethodStore == AproxMethodType.Secante
+    isClosed = $aproxMethodStore == AproxMethodType.NewtonRaphson
+
+    values = {...initialValues}
+  }
 </script>
 
 <Row class="pl-4 pr-4">
@@ -42,7 +61,7 @@
 
     {#if isShowing}
       <Row style="align-items: center;">
-        {#if $aproxMethodStore == AproxMethodType.Biseccion || $aproxMethodStore == AproxMethodType.ReglaFalsa }
+        {#if isOpened }
           <Col cols={12} md={4}>
             <TextField
               class=""
@@ -63,7 +82,7 @@
               <span>Positive initial value</span>
             </TextField>
           </Col>
-        {:else if $aproxMethodStore == AproxMethodType.NewtonRaphson }
+        {:else if isClosed }
           <Col cols={12} md={4}>
             <TextField
               class=""

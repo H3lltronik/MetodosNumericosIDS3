@@ -47,6 +47,7 @@
           <Radio bind:group={$aproxMethod} value={AproxMethodType.Biseccion}>Biseccion</Radio>
           <Radio bind:group={$aproxMethod} value={AproxMethodType.ReglaFalsa}>Regla Falsa</Radio>
           <Radio bind:group={$aproxMethod} value={AproxMethodType.NewtonRaphson}>Newton Raphson</Radio>
+          <Radio bind:group={$aproxMethod} value={AproxMethodType.Secante}>Secante</Radio>
         </Col>
         <Col class="" cols={12}>
           <div class="text-h7 mb-4">

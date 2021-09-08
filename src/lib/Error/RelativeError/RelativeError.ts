@@ -6,6 +6,7 @@ class RelativeError implements ErrorExecutable {
     }
 
     executeMethod(values: ErrorValType) {
+        console.log("nya", values)
         if (values.currentVal == 0) return 0
 
         this.mathParser.setExpression("(abs(currentVal - previousVal)) / (currentVal)")

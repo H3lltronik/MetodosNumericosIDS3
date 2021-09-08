@@ -5,11 +5,12 @@ export const count = writable<number>(0);
 export const iterationStep = writable<number>(1);
 export const varToItOver = writable("x");
 
-export const expression = writable( "x^3 - 10" );
+// export const expression = writable( "x^3 - 10" );
+export const expression = writable( "x*sin(x)-1" );
 export const fixedDecimals = writable( 3 );
 
 export const errorMethod = writable( ErrorMethodType.Relative );
-export const aproxMethod = writable( AproxMethodType.Biseccion );
+export const aproxMethod = writable( AproxMethodType.Secante );
 export const stopCriteria = writable( MethodStopCondition.Equal );
 export const stopCriteriaVal = writable( 4 );
 export const stopCriteriaMethod = writable( MethodStopType.Iterations );
